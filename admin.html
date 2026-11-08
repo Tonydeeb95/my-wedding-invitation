@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | لوحة تحكم عرس توني ومارينا</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-white p-6 font-sans">
+    <div class="max-w-6xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <div class="text-center py-6 border-b border-slate-800">
+            <h1 class="text-3xl font-bold text-amber-400">لوحة تحكم إرسال ومتابعة الدعوات</h1>
+            <p class="text-slate-400 text-sm mt-1">Tony & Marina Wedding Dashboard</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Form Card (Add Guest) -->
+            <div class="lg:col-span-1 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl h-fit">
+                <h2 class="text-xl font-bold text-amber-400 mb-4"><i class="fas fa-user-plus ml-2"></i>إضافة ضيف جديد</h2>
+                
+                <form id="admin-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">الاسم بالعربية</label>
+                        <input type="text" id="name_ar" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">الاسم بالإنجليزي</label>
+                        <input type="text" id="name_en" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">الاسم بالألماني</label>
+                        <input type="text" id="name_de" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">العدد الأقصى المسموح</label>
+                        <input type="number" id="maxGuests" value="2" min="1" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-lg hover:bg-amber-400 transition text-sm shadow-lg">حفظ وتوليد الرابط</button>
+                </form>
+
+                <div id="result-box" class="mt-4 hidden bg-slate-950 p-3 rounded-lg border border-amber-500/30">
+                    <p class="text-xs text-slate-400 mb-1">الرابط المخصص للضيف:</p>
+                    <input type="text" id="generated-link" readonly class="w-full bg-slate-900 p-2 text-amber-400 text-xs rounded border border-slate-800 select-all">
+                </div>
+            </div>
+
+            <!-- Guests Table Card (Live Data from Google Sheets) -->
+            <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-amber-400"><i class="fas fa-list-check ml-2"></i>قائمة المدعوين وحالة الردود</h2>
+                    <button onclick="loadGuestsData()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs transition border border-slate-700"><i class="fas fa-sync-alt ml-1"></i> تحديث البيانات</button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right text-sm">
+                        <thead class="bg-slate-950 text-slate-400 text-xs uppercase border-b border-slate-800">
+                            <tr>
+                                <th class="p-3">اسم الضيف</th>
+                                <th class="p-3">الماكس</th>
+                                <th class="p-3">الحالة</th>
+                                <th class="p-3">الحضور</th>
+                                <th class="p-3">الرابط / ملاحظة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guests-table-body" class="divide-y divide-slate-800 text-slate-300 text-xs">
+                            <tr>
+                                <td colspan="5" class="text-center py-6 text-slate-500">جاري تحميل البيانات...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ضع رابط Google Apps Script الذي نسخته هنا
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzeL7dpfUv23aQpi18toFxv6q9TktYMctRIaeISqiSCEQosiuXF0xcgtYpbzKzsDUoYg/exec";
+        // ضع رابط موقع الدعوة الرئيسي الخاص بك هنا
+        const BASE_INVITE_URL = "https://tonydeeb95.github.io/my-wedding-invitation/";
+
+        // 1. إضافة ضيف جديد
+        document.getElementById('admin-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const guestId = 'g_' + Math.random().toString(36).substr(2, 9);
+            const payload = {
+                action: "addGuest",
+                guestId: guestId,
+                name_ar: document.getElementById('name_ar').value,
+                name_en: document.getElementById('name_en').value,
+                name_de: document.getElementById('name_de').value,
+                maxGuests: parseInt(document.getElementById('maxGuests').value)
+            };
+
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+
+            const inviteUrl = `${BASE_INVITE_URL}?id=${guestId}`;
+            document.getElementById('generated-link').value = inviteUrl;
+            document.getElementById('result-box').classList.remove('hidden');
+            
+            // إعادة تحميل الجدول فوراً
+            loadGuestsData();
+        });
+
+        // 2. استعراض وجلب البيانات من الشيت
+        async function loadGuestsData() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getAllGuests`);
+                const guests = await response.json();
+                
+                const tbody = document.getElementById('guests-table-body');
+                tbody.innerHTML = '';
+
+                if(guests.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-500">لا يوجد مدعوون مضافون حتى الآن.</td></tr>`;
+                    return;
+                }
+
+                guests.forEach(g => {
+                    let statusBadge = '';
+                    if(g.status === 'attending') {
+                        statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded border border-emerald-500/20">حاضر</span>`;
+                    } else if(g.status === 'declined') {
+                        statusBadge = `<span class="bg-rose-500/10 text-rose-400 px-2 py-1 rounded border border-rose-500/20">معتذر</span>`;
+                    } else {
+                        statusBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded border border-amber-500/20">بانتظار الرد</span>`;
+                    }
+
+                    const inviteLink = `${BASE_INVITE_URL}?id=${g.id}`;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="p-3 font-semibold text-white">${g.name_ar}</td>
+                        <td class="p-3">${g.maxGuests}</td>
+                        <td class="p-3">${statusBadge}</td>
+                        <td class="p-3 font-bold text-amber-400">${g.confirmedCount || 0}</td>
+                        <td class="p-3 space-y-1">
+                            <div class="flex items-center gap-1">
+                                <input type="text" value="${inviteLink}" readonly class="bg-slate-950 p-1 text-[10px] text-slate-400 rounded w-36 select-all border border-slate-800">
+                                <button onclick="navigator.clipboard.writeText('${inviteLink}'); alert('تم نسخ الرابط!');" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-2 py-1 rounded text-[10px]"><i class="fas fa-copy"></i></button>
+                            </div>
+                            ${g.note ? `<p class="text-[10px] text-slate-400 italic">ملاحظة: ${g.note}</p>` : ''}
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch(err) {
+                console.error("Error loading guests", err);
+            }
+        }
+
+        // تحميل البيانات أول ما تفتح الصفحة
+        loadGuestsData();
+    </script>
+</body>
+</html>
