@@ -11,6 +11,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
         
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #0f172a;
@@ -40,11 +43,11 @@
 
     <!-- Prominent Top Deadline Banner -->
     <div class="bg-amber-500/10 border-b border-amber-500/30 text-amber-300 text-center py-2.5 px-4 text-xs md:text-sm mt-16 z-40 relative">
-        <i class="fas fa-clock ml-2"></i> <span data-i18n="topDeadlineNotice">تنبيه هامة: يرجى تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026.</span>
+        <i class="fas fa-clock ml-2"></i> <span data-i18n="topDeadlineNotice">تنبيه هام: يرجى تأكيد الحضور أو الإلغاء في موعد أقصاه نهاية يوم 13-11-2026.</span>
     </div>
 
     <!-- Hero Section -->
-    <section class="relative h-[80vh] flex items-center justify-center text-center px-4 overflow-hidden">
+    <section class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="image6.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
@@ -64,10 +67,18 @@
                 <div class="glass p-3 rounded-xl"><span id="seconds" class="text-2xl font-bold text-amber-400 block">00</span><span class="text-xs text-slate-400" data-i18n="seconds">ثوانٍ</span></div>
             </div>
         </div>
+
+        <!-- Scroll Down Indicator (مُحسّن وبارز جداً) -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 text-center">
+            <a href="#event-details" class="group flex flex-col items-center gap-2 bg-slate-900/90 hover:bg-amber-500 text-amber-400 hover:text-slate-950 px-5 py-2.5 rounded-full border border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-all duration-300 animate-bounce">
+                <span class="text-xs font-bold tracking-wider" data-i18n="scrollDown">التفاصيل والحجز</span>
+                <i class="fas fa-chevron-down text-sm transition-transform group-hover:translate-y-1"></i>
+            </a>
+        </div>
     </section>
 
     <!-- Event Details Section -->
-    <section class="max-w-5xl mx-auto px-4 py-16">
+    <section id="event-details" class="max-w-5xl mx-auto px-4 py-16">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-serif text-amber-400" data-i18n="eventTitle">تفاصيل الاحتفال</h2>
             <div class="w-16 h-0.5 bg-amber-500 mx-auto mt-3"></div>
@@ -80,8 +91,8 @@
                 <h3 class="text-2xl font-serif font-bold text-white mb-2" data-i18n="churchName">القداس الإلهي (الكنيسة)</h3>
                 <p class="text-slate-400 text-sm mb-4"><i class="far fa-clock text-amber-400 ml-2"></i> 12 - 12 - 2026 | 15:45</p>
                 <p class="text-slate-300 mb-6"><i class="fas fa-map-marker-alt text-amber-400 ml-2"></i> Auguststraße 90, 10117 Berlin</p>
-                <a href="https://maps.google.com/?q=Auguststraße+90,+10117+Berlin" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 px-4 py-2 rounded-lg text-sm transition border border-amber-500/30">
-                    <i class="fas fa-directions"></i> <span data-i18n="openMap">فتح الخريطة</span>
+                <a id="map-link" href="#" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 px-4 py-2 rounded-lg text-sm transition border border-amber-500/30">
+                     <i class="fas fa-directions"></i> <span data-i18n="openMap">فتح الخريطة</span>
                 </a>
             </div>
 
@@ -89,7 +100,7 @@
             <div class="glass p-8 rounded-2xl shadow-xl relative overflow-hidden border-t-4 border-amber-500">
                 <div class="absolute top-4 left-4 text-amber-500/20 text-6xl"><i class="fa-solid fa-glass-cheers"></i></div>
                 <h3 class="text-2xl font-serif font-bold text-white mb-2" data-i18n="partyName">حفل الاستقبال والحفلة</h3>
-                <p class="text-slate-400 text-sm mb-4"><i class="far fa-clock text-amber-400 ml-2"></i> 12 - 12 - 2026 | 17:00</p>
+                <p class="text-slate-400 text-sm mb-4"><i class="far fa-clock text-amber-400 ml-2"></i> 12 - 12 - 2026 | 17:30</p>
                 
                 <div id="party-location-box">
                     <p class="text-amber-300 font-medium mb-6 bg-amber-500/10 p-3 rounded-lg border border-amber-500/20">
@@ -118,30 +129,6 @@
         </div>
     </section>
 
-    <!-- Photo Gallery Section -->
-    <section class="max-w-5xl mx-auto px-4 py-12">
-        <div class="text-center mb-8">
-            <h2 class="text-2xl font-serif text-amber-400" data-i18n="galleryTitle">لحظاتنا معاً</h2>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image1.jpeg" alt="Gallery 1" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div>
-            <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image7.jpeg" alt="Gallery 2" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div>
-            <!-- <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image8.jpeg" alt="Gallery 3" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div> -->
-            <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image2.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div>
-            <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image10.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
-            </div>
-        </div>
-    </section>
-
     <!-- RSVP Section -->
     <section id="rsvp-section" class="max-w-2xl mx-auto px-4 py-16">
         <div class="glass p-8 rounded-3xl shadow-2xl border border-amber-500/20">
@@ -150,7 +137,7 @@
             <div id="rsvp-form-container">
                 <div class="text-center mb-6">
                     <h2 class="text-3xl font-serif text-amber-400" data-i18n="rsvpTitle">تأكيد الحضور (RSVP)</h2>
-                    <p class="text-slate-400 text-sm mt-2" data-i18n="rsvpDeadline">الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026</p>
+                    <p class="text-slate-400 text-sm mt-2" data-i18n="rsvpDeadline">الرجاء تأكيد الحضور أو الإلغاء في موعد أقصاه نهاية يوم 13-11-2026</p>
                 </div>
 
                 <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 mb-6 text-center text-xs text-amber-300">
@@ -159,7 +146,7 @@
 
                 <form id="rsvp-form" class="space-y-6">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="nameLabel">اسم الضيف الكريم</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="nameLabel">السيد / السيدة</label>
                         <input type="text" id="guest-name" required class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500" readonly>
                     </div>
 
@@ -167,8 +154,8 @@
                         <div>
                             <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="statusLabel">هل ستشرفنا بحضورك؟</label>
                             <select id="attendance-status" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
-                                <option value="attending" data-i18n="attending">سأحضر بكل سرور</option>
                                 <option value="declined" data-i18n="declined">أعتذر عن عدم الحضور</option>
+                                <option value="attending" data-i18n="attending">سأحضر بكل سرور</option>
                             </select>
                         </div>
                         <div>
@@ -200,6 +187,51 @@
         </div>
     </section>
 
+        <!-- Photo Gallery Section -->
+    <section class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-serif text-amber-400" data-i18n="galleryTitle">لحظاتنا معاً</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image1.jpeg" alt="Gallery 1" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image2.jpeg" alt="Gallery 2" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image3.jpeg" alt="Gallery 3" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image4.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image5.jpeg" alt="Gallery 5" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image6.jpeg" alt="Gallery 6" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image7.jpeg" alt="Gallery 7" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>         
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image10.jpeg" alt="Gallery 8" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div> 
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image11.jpeg" alt="Gallery 9" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image12.jpeg" alt="Gallery 10" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image13.jpeg" alt="Gallery 11" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>         
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image14.jpeg" alt="Gallery 12" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>                     
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="text-center py-8 text-slate-500 text-sm border-t border-slate-900">
         <p>Tony & Marina Wedding • Berlin 2026</p>
@@ -209,13 +241,14 @@
     <script>
         const translations = {
             ar: {
-                topDeadlineNotice: "تنبيه هام: يرجى تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026.",
+                topDeadlineNotice: "ملاحظة لطيفة: نتمنى حضوركم، وفي حال عدم الرد أو عدم التأكيد قبل تاريخ 13-11-2026، سنعتبر ذلك اعتذارات مقدراً منكم.",
                 saveTheDate: "احفظ هذا التاريخ",
+                scrollDown: "التفاصيل والحجز",
                 weddingSubtitle: "يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين",
                 days: "أيام", hours: "ساعات", minutes: "دقائق", seconds: "ثوانٍ",
                 eventTitle: "تفاصيل الاحتفال",
                 churchName: "القداس الإلهي (الكنيسة)",
-                partyName: "حفل الاستقبال والحفلة",
+                partyName: "العشاء والاحتفال",
                 partySoon: "المكان سيحدد لاحقا ويُعلن هنا قريباً!",
                 openMap: "فتح الخريطة",
                 extraInfoTitle: "معلومات إضافية للإقامة والتنقل",
@@ -225,9 +258,9 @@
                 routeDesc: "خريطة توضح مسار التنقل بين الكنيسة ومكان الحفلة.",
                 galleryTitle: "لحظاتنا معاً",
                 rsvpTitle: "تأكيد الحضور (RSVP)",
-                rsvpDeadline: "الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026",
+                rsvpDeadline: "الرجاء تأكيد الحضور أو الإلغاء في موعد أقصاه نهاية يوم 13-11-2026",
                 uniqueLinkNote: "تنبيه: يرجى تأكيد الحضور من خلال الرابط المخصص المباشر الذي تم إرساله إليكم لضمان تسجيل أعدادكم بدقة.",
-                nameLabel: "اسم الضيف الكريم",
+                nameLabel: "السيد / السيدة",
                 statusLabel: "هل ستشرفنا بحضورك؟",
                 attending: "سأحضر بكل سرور",
                 declined: "أعتذر عن عدم الحضور",
@@ -236,16 +269,17 @@
                 submitBtn: "إرسال التأكيد",
                 personSingular: " شخص",
                 personPlural: " أشخاص",
-                defaultGuest: "الضيف الكريم"
+                defaultGuest: "السيد / السيدة"
             },
             en: {
-                topDeadlineNotice: "Important: Please confirm your attendance by the end of November 13, 2026.",
+                topDeadlineNotice: "A gentle note: We'd love to have you, but if no response is received by November 13, 2026, we will kindly understand it as a regretful decline.",
                 saveTheDate: "Save Our Date",
+                scrollDown: "Details & RSVP",
                 weddingSubtitle: "We are delighted to celebrate our special day with you in Berlin",
                 days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
                 eventTitle: "Wedding Details",
                 churchName: "Church Ceremony",
-                partyName: "Wedding Reception & Party",
+                partyName: "Dinner & Party",
                 partySoon: "Location will be announced soon right here!",
                 openMap: "Open Map",
                 extraInfoTitle: "Accommodation & Travel Guide",
@@ -255,9 +289,9 @@
                 routeDesc: "Directions between the church and reception venue.",
                 galleryTitle: "Our Moments",
                 rsvpTitle: "RSVP",
-                rsvpDeadline: "Kindly respond by the end of November 13, 2026",
+                rsvpDeadline: "Please confirm or decline by the end of November 13, 2026",
                 uniqueLinkNote: "Note: Please confirm your RSVP using the personalized link sent to you to ensure accurate guest allocation.",
-                nameLabel: "Guest Name",
+                nameLabel: "Mr. / Ms.",
                 statusLabel: "Will you attend?",
                 attending: "Joyfully Accept",
                 declined: "Regretfully Decline",
@@ -266,16 +300,17 @@
                 submitBtn: "Send RSVP",
                 personSingular: " Person",
                 personPlural: " People",
-                defaultGuest: "Dear Guest"
+                defaultGuest: "Guest"
             },
             de: {
-                topDeadlineNotice: "Wichtig: Bitte bestätigen Sie Ihre Teilnahme bis zum 13. November 2026.",
+                topDeadlineNotice: "Ein kleiner Hinweis: Wir würden uns freuen, wenn Sie dabei sind. Sollten wir bis zum 13. November 2026 keine Rückmeldung erhalten, werten wir dies als eine liebevolle Absage.",
                 saveTheDate: "Merken Sie sich das Datum",
+                scrollDown: "Details & RSVP",
                 weddingSubtitle: "Wir freuen uns, unseren besonderen Tag in Berlin mit Ihnen zu feiern",
                 days: "Tage", hours: "Stunden", minutes: "Minuten", seconds: "Sekunden",
                 eventTitle: "Veranstaltungsdetails",
                 churchName: "Kirchliche Trauung",
-                partyName: "Hochzeitsfeier & Empfang",
+                partyName: "Abendessen & Party",
                 partySoon: "Der Ort wird bald hier bekannt gegeben!",
                 openMap: "Karte öffnen",
                 extraInfoTitle: "Unterkunft & Anfahrt",
@@ -285,9 +320,9 @@
                 routeDesc: "Wegbeschreibung zwischen Kirche und Feierlocation.",
                 galleryTitle: "Unsere Momente",
                 rsvpTitle: "Zusage (RSVP)",
-                rsvpDeadline: "Bitte antworten Sie bis zum 13.11.2026",
+                rsvpDeadline: "Bitte bestätigen Sie Ihre Teilnahme oder Absage bis zum 13.11.2026",
                 uniqueLinkNote: "Hinweis: Bitte bestätigen Sie Ihre Teilnahme über den Ihnen zugesandten persönlichen Link.",
-                nameLabel: "Name des Gasts",
+                nameLabel: "Herr / Frau",
                 statusLabel: "Werden Sie teilnehmen?",
                 attending: "Ich/Wir komme(n) gerne",
                 declined: "Ich/Wir muss/müssen leider absagen",
@@ -296,16 +331,24 @@
                 submitBtn: "Zusage senden",
                 personSingular: " Person",
                 personPlural: " Personen",
-                defaultGuest: "Lieber Gast"
+                defaultGuest: "Gast"
             }
         };
+
+        // اكتشاف لغة الجهاز تلقائياً
+        function getDeviceLanguage() {
+            const userLang = (navigator.language || navigator.userLanguage || 'ar').toLowerCase();
+            if (userLang.startsWith('de')) return 'de';
+            if (userLang.startsWith('en')) return 'en';
+            return 'ar';
+        }
 
         const API_URL = "https://script.google.com/macros/s/AKfycbyzeL7dpfUv23aQpi18toFxv6q9TktYMctRIaeISqiSCEQosiuXF0xcgtYpbzKzsDUoYg/exec";
 
         const urlParams = new URLSearchParams(window.location.search);
         const guestId = urlParams.get('id');
         let currentGuestData = null;
-        let currentLang = 'ar';
+        let currentLang = getDeviceLanguage();
 
         async function fetchGuestDetails() {
             if(!guestId) return;
@@ -433,7 +476,7 @@
         }
 
         fetchGuestDetails();
-        setLang('ar');
+        setLang(currentLang);
 
         // Countdown Timer
         const weddingDate = new Date("December 12, 2026 15:45:00").getTime();
@@ -482,6 +525,26 @@
                 alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
             }
         });
+
+        // توجيه تلقائي لخرائط آبل على الآيفون وخرائط جوجل على الأندرويد
+        function setupSmartMapLink() {
+            const isAppleDevice = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
+            const address = "Auguststraße 90, 10117 Berlin";
+            const mapLinkElement = document.getElementById('map-link');
+
+            if (mapLinkElement) {
+                if (isAppleDevice) {
+                    // رابط خرائط آبل الرسمي للآيفون
+                    mapLinkElement.href = `https://maps.apple.com/?q=${encodeURIComponent(address)}`;
+                } else {
+                    // رابط خرائط جوجل للأندرويد وباقي الأجهزة
+                    mapLinkElement.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+                }
+            }
+        }
+
+        // تشغيل الدالة عند تحميل الصفحة
+        setupSmartMapLink();        
     </script>
 </body>
 </html>
