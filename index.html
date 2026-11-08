@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony Deeb & Marina Kasis Wedding | عرس طوني ديب ومارينا قسيس</title>
+    <!-- Tailwind CSS for Modern Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-amber-500 selection:text-white">
+
+    <!-- Top Bar: Language Switcher -->
+    <header class="absolute top-0 left-0 right-0 z-50 p-4 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="text-amber-400 font-serif text-lg tracking-widest">T & M</div>
+        <div class="flex gap-2 bg-slate-900/80 p-1.5 rounded-full border border-slate-700 backdrop-blur">
+            <button onclick="setLang('ar')" id="btn-ar" class="px-3 py-1 text-xs rounded-full font-semibold bg-amber-500 text-slate-950 transition">AR</button>
+            <button onclick="setLang('en')" id="btn-en" class="px-3 py-1 text-xs rounded-full font-semibold text-slate-300 hover:text-white transition">EN</button>
+            <button onclick="setLang('de')" id="btn-de" class="px-3 py-1 text-xs rounded-full font-semibold text-slate-300 hover:text-white transition">DE</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- استخدام الصورة الأولى كخلفية رئيسية -->
+            <img src="image1.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+            <span class="text-amber-400 tracking-[0.3em] uppercase text-sm font-semibold" data-i18n="saveTheDate">Save Our Date</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold tracking-wide text-white">Tony & Marina</h1>
+            <p class="text-lg md:text-xl text-slate-300 font-light" data-i18n="weddingSubtitle">يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين</p>
+            
+            <!-- Countdown Timer -->
+            <div id="countdown" class="grid grid-cols-4 gap-3 max-w-md mx-auto pt-4 text-center">
+                <div class="glass p-3 rounded-xl"><span id="days" class="text-2xl font-bold text-amber-400 block">00</span><span class="text-xs text-slate-400" data-i18n="days">أيام</span></div>
+                <div class="glass p-3 rounded-xl"><span id="hours" class="text-2xl font-bold text-amber-400 block">00</span><span class="text-xs text-slate-400" data-i18n="hours">ساعات</span></div>
+                <div class="glass p-3 rounded-xl"><span id="minutes" class="text-2xl font-bold text-amber-400 block">00</span><span class="text-xs text-slate-400" data-i18n="minutes">دقائق</span></div>
+                <div class="glass p-3 rounded-xl"><span id="seconds" class="text-2xl font-bold text-amber-400 block">00</span><span class="text-xs text-slate-400" data-i18n="seconds">ثوانٍ</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section class="max-w-5xl mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-serif text-amber-400" data-i18n="eventTitle">تفاصيل الاحتفال</h2>
+            <div class="w-16 h-0.5 bg-amber-500 mx-auto mt-3"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Church Card -->
+            <div class="glass p-8 rounded-2xl shadow-xl relative overflow-hidden border-t-4 border-amber-500">
+                <div class="absolute top-4 left-4 text-amber-500/20 text-6xl"><i class="fa-solid fa-church"></i></div>
+                <h3 class="text-2xl font-serif font-bold text-white mb-2" data-i18n="churchName">القداس الإلهي (الكنيسة)</h3>
+                <p class="text-slate-400 text-sm mb-4"><i class="far fa-clock text-amber-400 ml-2"></i> 12 - 12 - 2026 | 15:45</p>
+                <p class="text-slate-300 mb-6"><i class="fas fa-map-marker-alt text-amber-400 ml-2"></i> Auguststraße 90, 10117 Berlin</p>
+                <a href="https://maps.google.com/?q=Auguststraße+90,+10117+Berlin" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 px-4 py-2 rounded-lg text-sm transition border border-amber-500/30">
+                    <i class="fas fa-directions"></i> <span data-i18n="openMap">فتح الخريطة</span>
+                </a>
+            </div>
+
+            <!-- Party Card (Dynamic Update Area) -->
+            <div class="glass p-8 rounded-2xl shadow-xl relative overflow-hidden border-t-4 border-amber-500">
+                <div class="absolute top-4 left-4 text-amber-500/20 text-6xl"><i class="fa-solid fa-glass-cheers"></i></div>
+                <h3 class="text-2xl font-serif font-bold text-white mb-2" data-i18n="partyName">حفل الاستقبال والحفلة</h3>
+                <p class="text-slate-400 text-sm mb-4"><i class="far fa-clock text-amber-400 ml-2"></i> 12 - 12 - 2026 | 17:00</p>
+                
+                <!-- سيتم تحديث هذا العنصر تلقائياً بعد تاريخ التسجيل أو يدوياً -->
+                <div id="party-location-box">
+                    <p class="text-amber-300 font-medium mb-6 bg-amber-500/10 p-3 rounded-lg border border-amber-500/20">
+                        <i class="fas fa-info-circle ml-2"></i> <span data-i18n="partySoon">المكان سيحدد لاحقا ويُعلن هنا قريباً!</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels & Route Map Section (Hidden before deadline, or can be shown as placeholder) -->
+    <section id="extra-info-section" class="max-w-5xl mx-auto px-4 py-8 hidden">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-serif text-amber-400" data-i18n="extraInfoTitle">معلومات إضافية للإقامة والتنقل</h2>
+            <div class="w-12 h-0.5 bg-amber-500 mx-auto mt-2"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass p-6 rounded-xl">
+                <h4 class="text-lg font-bold text-amber-400 mb-3"><i class="fas fa-hotel ml-2"></i> <span data-i18n="hotelsTitle">الفنادق المقترحة القريبة</span></h4>
+                <p class="text-slate-300 text-sm" data-i18n="hotelsDesc">قريباً سيتم إدراج قائمة بأفضل الفنادق وأقربها لموقع الكنيسة والحفلة لتسهيل حجزكم.</p>
+            </div>
+            <div class="glass p-6 rounded-xl">
+                <h4 class="text-lg font-bold text-amber-400 mb-3"><i class="fas fa-route ml-2"></i> <span data-i18n="routeTitle">خارطة الطريق</span></h4>
+                <p class="text-slate-300 text-sm" data-i18n="routeDesc">خريطة توضح مسار التنقل بين الكنيسة ومكان الحفلة فور الإعلان عنه.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-serif text-amber-400" data-i18n="galleryTitle">لحظاتنا معاً</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image2.jpeg" alt="Gallery 1" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image3.jpeg" alt="Gallery 2" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image4.jpeg" alt="Gallery 3" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+            <div class="overflow-hidden rounded-xl h-48 glass">
+                <img src="image1.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section (Auto hides after 2026-11-13) -->
+    <section id="rsvp-section" class="max-w-2xl mx-auto px-4 py-16">
+        <div class="glass p-8 rounded-3xl shadow-2xl border border-amber-500/20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-serif text-amber-400" data-i18n="rsvpTitle">تأكيد الحضور (RSVP)</h2>
+                <p class="text-slate-400 text-sm mt-2" data-i18n="rsvpDeadline">الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026</p>
+            </div>
+
+            <form id="rsvp-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="nameLabel">اسم الضيف:</label>
+                    <input type="text" id="guest-name" required class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500" readonly>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="statusLabel">هل ستشرفنا بحضورك؟</label>
+                        <select id="attendance-status" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                            <option value="attending" data-i18n="attending">سأحضر بكل سرور</option>
+                            <option value="declined" data-i18n="declined">أعتذر عن عدم الحضور</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="countLabel">عدد الأشخاص القادمين</label>
+                        <select id="guest-count" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                            <!-- سيتم تعبئته برمجياً حسب الحد الأقصى للرابط -->
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="noteLabel">ملاحظات أو تهنئة (اختياري)</label>
+                    <textarea id="guest-note" rows="3" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold py-3.5 rounded-xl hover:opacity-90 transition shadow-lg" data-i18n="submitBtn">
+                    إرسال التأكيد
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-slate-500 text-sm border-t border-slate-900">
+        <p>Tony & Marina Wedding • Berlin 2026</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. الترجمات للغات الثلاث (عربي، إنجليزي، ألماني) ---
+        const translations = {
+            ar: {
+                saveTheDate: "احفظ هذا التاريخ",
+                weddingSubtitle: "يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين",
+                days: "أيام", hours: "ساعات", minutes: "دقائق", seconds: "ثوانٍ",
+                eventTitle: "تفاصيل الاحتفال",
+                churchName: "القداس الإلهي (الكنيسة)",
+                partyName: "حفل الاستقبال والحفلة",
+                partySoon: "المكان سيحدد لاحقا ويُعلن هنا قريباً!",
+                openMap: "فتح الخريطة",
+                extraInfoTitle: "معلومات إضافية للإقامة والتنقل",
+                hotelsTitle: "الفنادق المقترحة القريبة",
+                hotelsDesc: "قريباً سيتم إدراج قائمة بأفضل الفنادق وأقربها لتسهيل حجزكم.",
+                routeTitle: "خارطة الطريق",
+                routeDesc: "خريطة توضح مسار التنقل بين الكنيسة ومكان الحفلة.",
+                galleryTitle: "لحظاتنا معاً",
+                rsvpTitle: "تأكيد الحضور (RSVP)",
+                rsvpDeadline: "الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026",
+                nameLabel: "اسم الضيف الكريم",
+                statusLabel: "هل ستشرفنا بحضورك؟",
+                attending: "سأحضر بكل سرور",
+                declined: "أعتذر عن عدم الحضور",
+                countLabel: "عدد الأشخاص القادمين",
+                noteLabel: "ملاحظات أو تهنئة (اختياري)",
+                submitBtn: "إرسال التأكيد"
+            },
+            en: {
+                saveTheDate: "Save Our Date",
+                weddingSubtitle: "We are delighted to celebrate our special day with you in Berlin",
+                days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
+                eventTitle: "Wedding Details",
+                churchName: "Church Ceremony",
+                partyName: "Wedding Reception & Party",
+                partySoon: "Location will be announced soon right here!",
+                openMap: "Open Map",
+                extraInfoTitle: "Accommodation & Travel Guide",
+                hotelsTitle: "Recommended Hotels",
+                hotelsDesc: "A curated list of nearby hotels will be available soon.",
+                routeTitle: "Route Map",
+                routeDesc: "Directions between the church and reception venue.",
+                galleryTitle: "Our Moments",
+                rsvpTitle: "RSVP",
+                rsvpDeadline: "Kindly respond by the end of November 13, 2026",
+                nameLabel: "Guest Name",
+                statusLabel: "Will you attend?",
+                attending: "Joyfully Accept",
+                declined: "Regretfully Decline",
+                countLabel: "Number of Guests",
+                noteLabel: "Notes or Wishes (Optional)",
+                submitBtn: "Send RSVP"
+            },
+            de: {
+                saveTheDate: "Merken Sie sich das Datum",
+                weddingSubtitle: "Wir freuen uns, unseren besonderen Tag in Berlin mit Ihnen zu feiern",
+                days: "Tage", hours: "Stunden", minutes: "Minuten", sekunden: "Sekunden",
+                eventTitle: "Veranstaltungsdetails",
+                churchName: "Kirchliche Trauung",
+                partyName: "Hochzeitsfeier & Empfang",
+                partySoon: "Der Ort wird bald hier bekannt gegeben!",
+                openMap: "Karte öffnen",
+                extraInfoTitle: "Unterkunft & Anfahrt",
+                hotelsTitle: "Empfohlene Hotels",
+                hotelsDesc: "Eine Liste naheliegender Hotels wird in Kürze verfügbar sein.",
+                routeTitle: "Routenplaner",
+                routeDesc: "Wegbeschreibung zwischen Kirche und Feierlocation.",
+                galleryTitle: "Unsere Momente",
+                rsvpTitle: "Zusage (RSVP)",
+                rsvpDeadline: "Bitte antworten Sie bis zum 13.11.2026",
+                nameLabel: "Name des Gasts",
+                statusLabel: "Werden Sie teilnehmen?",
+                attending: "Ich/Wir komme(n) gerne",
+                declined: "Ich/Wir muss/müssen leider absagen",
+                countLabel: "Anzahl der Personen",
+                noteLabel: "Notizen oder Wünsche (Optional)",
+                submitBtn: "Zusage senden"
+            }
+        };
+
+        function setLang(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            
+            // Highlight active button
+            ['ar', 'en', 'de'].forEach(l => {
+                const btn = document.getElementById(`btn-${l}`);
+                if(l === lang) {
+                    btn.className = "px-3 py-1 text-xs rounded-full font-semibold bg-amber-500 text-slate-950 transition";
+                } else {
+                    btn.className = "px-3 py-1 text-xs rounded-full font-semibold text-slate-300 hover:text-white transition";
+                }
+            });
+
+            // Update texts
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // --- 2. قراءة بارامترات الرابط (الاسم والعدد الأقصى) ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('name') || 'الضيف الكريم';
+        const maxCount = parseInt(urlParams.get('max')) || 2; // افتراضي 2 إذا لم يُحدد
+
+        document.getElementById('guest-name').value = decodeURIComponent(guestName);
+
+        const countSelect = document.getElementById('guest-count');
+        for(let i = 1; i <= maxCount; i++) {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i + (i === 1 ? ' شخص' : ' أشخاص');
+            countSelect.appendChild(opt);
+        }
+
+        // --- 3. العد التنازلي ليوم العرس (12-12-2026) ---
+        const weddingDate = new Date("December 12, 2026 15:45:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            if(distance > 0) {
+                document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('seconds').textContent = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+
+        // --- 4. المنطق البرمجي لإخفاء الفورم بعد تاريخ 13-11-2026 وعرض المعلومات الإضافية ---
+        const deadline = new Date("November 13, 2026 23:59:59").getTime();
+        const nowTime = new Date().getTime();
+
+        if(nowTime > deadline) {
+            // بعد تاريخ التأسيس/التسجيل: إخفاء فورم الحضور وإظهار قسم الفنادق والخارطة وتحديث مكان الحفلة
+            const rsvpSection = document.getElementById('rsvp-section');
+            if(rsvpSection) rsvpSection.style.display = 'none';
+
+            const extraSection = document.getElementById('extra-info-section');
+            if(extraSection) extraSection.classList.remove('hidden');
+
+            // مثال على تحديث مكان الحفلة تلقائياً عندما تحين اللحظة أو يتم إضافته
+            // document.getElementById('party-location-box').innerHTML = `<p class='text-white font-medium'>اسم قاعة الحفلة والعنوان بالتفصيل...</p>`;
+        }
+
+        // --- 5. إرسال الفورم إلى Google Sheets (عبر Formspree أو Google Apps Script) ---
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم إرسال تأكيد حضورك بنجاح! شكراً لك.');
+            // هنا يمكنك ربطه برابط Formspree الخاص بك أو Google Apps Script API بسهولة تامة.
+        });
+    </script>
+</body>
+</html>
