@@ -37,7 +37,7 @@
                         <label class="block text-xs text-slate-300 mb-1">العدد الأقصى المسموح</label>
                         <input type="number" id="maxGuests" value="2" min="1" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm">
                     </div>
-                    <button type="submit" class="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-lg hover:bg-amber-400 transition text-sm shadow-lg">حفظ وتوليد الرابط</button>
+                    <button type="submit" id="submit-btn" class="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-lg hover:bg-amber-400 transition text-sm shadow-lg">حفظ وتوليد الرابط</button>
                 </form>
 
                 <div id="result-box" class="mt-4 hidden bg-slate-950 p-3 rounded-lg border border-amber-500/30">
@@ -76,14 +76,15 @@
     </div>
 
     <script>
-        // ضع رابط Google Apps Script الذي نسخته هنا
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyzeL7dpfUv23aQpi18toFxv6q9TktYMctRIaeISqiSCEQosiuXF0xcgtYpbzKzsDUoYg/exec";
-        // ضع رابط موقع الدعوة الرئيسي الخاص بك هنا
         const BASE_INVITE_URL = "https://tonydeeb95.github.io/my-wedding-invitation/";
 
         // 1. إضافة ضيف جديد
         document.getElementById('admin-form').addEventListener('submit', async function(e) {
             e.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'جاري الحفظ...';
             
             const guestId = 'g_' + Math.random().toString(36).substr(2, 9);
             const payload = {
@@ -95,93 +96,55 @@
                 maxGuests: parseInt(document.getElementById('maxGuests').value)
             };
 
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            });
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
 
-            const inviteUrl = `${BASE_INVITE_URL}?id=${guestId}`;
-            document.getElementById('generated-link').value = inviteUrl;
-            document.getElementById('result-box').classList.remove('hidden');
-            
-            // إعادة تحميل الجدول فوراً
-            loadGuestsData();
+                const inviteUrl = `${BASE_INVITE_URL}?id=${guestId}`;
+                document.getElementById('generated-link').value = inviteUrl;
+                document.getElementById('result-box').classList.remove('hidden');
+                
+                // إعادة تصفير النموذج وإعادة تحميل الجدول
+                document.getElementById('admin-form').reset();
+                loadGuestsData();
+            } catch(err) {
+                alert('حدث خطأ أثناء إضافة الضيف، حاول مجدداً.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'حفظ وتوليد الرابط';
+            }
         });
 
         // 2. استعراض وجلب البيانات من الشيت
-async function loadGuestsData() {
-    const tbody = document.getElementById('guests-table-body');
-    tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">جاري تحميل البيانات من Google Sheets...</td></tr>`;
+        async function loadGuestsData() {
+            const tbody = document.getElementById('guests-table-body');
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">جاري تحميل البيانات من Google Sheets...</td></tr>`;
 
-    try {
-        const response = await fetch(`${SCRIPT_URL}?action=getAllGuests`, {
-            method: 'GET',
-            redirect: 'follow'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const guests = await response.json();
-        tbody.innerHTML = '';
-
-        if (!Array.isArray(guests) || guests.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-500">لا يوجد مدعوون مضافون في الجدول حتى الآن.</td></tr>`;
-            return;
-        }
-
-        guests.forEach(g => {
-            let statusBadge = '';
-            if (g.status === 'attending') {
-                statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded border border-emerald-500/20">حاضر</span>`;
-            } else if (g.status === 'declined') {
-                statusBadge = `<span class="bg-rose-500/10 text-rose-400 px-2 py-1 rounded border border-rose-500/20">معتذر</span>`;
-            } else {
-                statusBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded border border-amber-500/20">بانتظار الرد</span>`;
-            }
-
-            const inviteLink = `${BASE_INVITE_URL}?id=${g.id}`;
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="p-3 font-semibold text-white">${g.name_ar || '-'}</td>
-                <td class="p-3">${g.maxGuests || 0}</td>
-                <td class="p-3">${statusBadge}</td>
-                <td class="p-3 font-bold text-amber-400">${g.confirmedCount || 0}</td>
-                <td class="p-3 space-y-1">
-                    <div class="flex items-center gap-1">
-                        <input type="text" value="${inviteLink}" readonly class="bg-slate-950 p-1 text-[10px] text-slate-400 rounded w-36 select-all border border-slate-800">
-                        <button onclick="navigator.clipboard.writeText('${inviteLink}'); alert('تم نسخ الرابط!');" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-2 py-1 rounded text-[10px]"><i class="fas fa-copy"></i></button>
-                    </div>
-                    ${g.note ? `<p class="text-[10px] text-slate-400 italic">ملاحظة: ${g.note}</p>` : ''}
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-
-    } catch (err) {
-        console.error("Error loading guests:", err);
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-rose-400">حدث خطأ أثناء جلب البيانات: ${err.message}. تأكد من الاتصال أو شغل الـ VPN إذا كنت تفتح من شبكة مغلقة.</td></tr>`;
-    }
-}
             try {
-                const response = await fetch(`${SCRIPT_URL}?action=getAllGuests`);
-                const guests = await response.json();
+                const response = await fetch(`${SCRIPT_URL}?action=getAllGuests`, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
                 
-                const tbody = document.getElementById('guests-table-body');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const guests = await response.json();
                 tbody.innerHTML = '';
 
-                if(guests.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-500">لا يوجد مدعوون مضافون حتى الآن.</td></tr>`;
+                if (!Array.isArray(guests) || guests.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-500">لا يوجد مدعوون مضافون في الجدول حتى الآن.</td></tr>`;
                     return;
                 }
 
                 guests.forEach(g => {
                     let statusBadge = '';
-                    if(g.status === 'attending') {
+                    if (g.status === 'attending') {
                         statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded border border-emerald-500/20">حاضر</span>`;
-                    } else if(g.status === 'declined') {
+                    } else if (g.status === 'declined') {
                         statusBadge = `<span class="bg-rose-500/10 text-rose-400 px-2 py-1 rounded border border-rose-500/20">معتذر</span>`;
                     } else {
                         statusBadge = `<span class="bg-amber-500/10 text-amber-400 px-2 py-1 rounded border border-amber-500/20">بانتظار الرد</span>`;
@@ -191,8 +154,8 @@ async function loadGuestsData() {
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td class="p-3 font-semibold text-white">${g.name_ar}</td>
-                        <td class="p-3">${g.maxGuests}</td>
+                        <td class="p-3 font-semibold text-white">${g.name_ar || '-'}</td>
+                        <td class="p-3">${g.maxGuests || 0}</td>
                         <td class="p-3">${statusBadge}</td>
                         <td class="p-3 font-bold text-amber-400">${g.confirmedCount || 0}</td>
                         <td class="p-3 space-y-1">
@@ -205,8 +168,10 @@ async function loadGuestsData() {
                     `;
                     tbody.appendChild(tr);
                 });
-            } catch(err) {
-                console.error("Error loading guests", err);
+
+            } catch (err) {
+                console.error("Error loading guests:", err);
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-rose-400">حدث خطأ أثناء جلب البيانات: ${err.message}. تأكد من شغل الـ VPN إن كنت تفتح من سوريا.</td></tr>`;
             }
         }
 
