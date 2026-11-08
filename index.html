@@ -41,7 +41,7 @@
     <!-- Hero Section -->
     <section class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="image1.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
+            <img src="WhatsApp Image 2026-11-08 at 2.16.37 PM.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
         </div>
         
@@ -94,7 +94,7 @@
         </div>
     </section>
 
-    <!-- Extra Info Section -->
+    <!-- Extra Info Section (Hotels & Route) -->
     <section id="extra-info-section" class="max-w-5xl mx-auto px-4 py-8 hidden">
         <div class="text-center mb-10">
             <h2 class="text-2xl font-serif text-amber-400" data-i18n="extraInfoTitle">معلومات إضافية للإقامة والتنقل</h2>
@@ -119,16 +119,16 @@
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image2.jpeg" alt="Gallery 1" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                <img src="WhatsApp Image 2026-11-08 at 2.16.38 PM.jpeg" alt="Gallery 1" class="w-full h-full object-cover hover:scale-110 transition duration-500">
             </div>
             <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image3.jpeg" alt="Gallery 2" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                <img src="WhatsApp Image 2026-11-08 at 2.16.39 PM.jpeg" alt="Gallery 2" class="w-full h-full object-cover hover:scale-110 transition duration-500">
             </div>
             <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image4.jpeg" alt="Gallery 3" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                <img src="WhatsApp Image 2026-11-08 at 2.16.39 PM1.jpeg" alt="Gallery 3" class="w-full h-full object-cover hover:scale-110 transition duration-500">
             </div>
             <div class="overflow-hidden rounded-xl h-48 glass">
-                <img src="image5.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
+                <img src="WhatsApp Image 2026-11-08 at 2.16.40 PM.jpeg" alt="Gallery 4" class="w-full h-full object-cover hover:scale-110 transition duration-500">
             </div>
         </div>
     </section>
@@ -136,46 +136,58 @@
     <!-- RSVP Section -->
     <section id="rsvp-section" class="max-w-2xl mx-auto px-4 py-16">
         <div class="glass p-8 rounded-3xl shadow-2xl border border-amber-500/20">
-            <div class="text-center mb-6">
-                <h2 class="text-3xl font-serif text-amber-400" data-i18n="rsvpTitle">تأكيد الحضور (RSVP)</h2>
-                <p class="text-slate-400 text-sm mt-2" data-i18n="rsvpDeadline">الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026</p>
+            
+            <!-- حالة الفورم الطبيعية (قبل التسجيل وقبل انتهاء الموعد) -->
+            <div id="rsvp-form-container">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-serif text-amber-400" data-i18n="rsvpTitle">تأكيد الحضور (RSVP)</h2>
+                    <p class="text-slate-400 text-sm mt-2" data-i18n="rsvpDeadline">الرجاء تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026</p>
+                </div>
+
+                <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 mb-6 text-center text-xs text-amber-300">
+                    <i class="fas fa-exclamation-circle ml-1"></i> <span data-i18n="uniqueLinkNote">تنبيه: يرجى تأكيد الحضور من خلال الرابط المخصص المباشر الذي تم إرساله إليكم لضمان تسجيل أعدادكم بدقة.</span>
+                </div>
+
+                <form id="rsvp-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="nameLabel">اسم الضيف الكريم</label>
+                        <input type="text" id="guest-name" required class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500" readonly>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="statusLabel">هل ستشرفنا بحضورك؟</label>
+                            <select id="attendance-status" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                                <option value="attending" data-i18n="attending">سأحضر بكل سرور</option>
+                                <option value="declined" data-i18n="declined">أعتذر عن عدم الحضور</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="countLabel">عدد الأشخاص القادمين</label>
+                            <select id="guest-count" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                                <!-- Populated via JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="noteLabel">ملاحظات أو تهنئة (اختياري)</label>
+                        <textarea id="guest-note" rows="3" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold py-3.5 rounded-xl hover:opacity-90 transition shadow-lg" data-i18n="submitBtn">
+                        إرسال التأكيد
+                    </button>
+                </form>
             </div>
 
-            <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3.5 mb-6 text-center text-xs text-amber-300">
-                <i class="fas fa-exclamation-circle ml-1"></i> <span data-i18n="uniqueLinkNote">تنبيه: يرجى تأكيد الحضور من خلال الرابط المخصص المباشر الذي تم إرساله إليكم لضمان تسجيل أعدادكم بدقة.</span>
+            <!-- رسالة الشكر/الحالة (تظهر بعد إتمام التسجيل أو بعد انتهاء الموعد) -->
+            <div id="rsvp-thankyou-box" class="hidden text-center py-8 space-y-4">
+                <div id="status-icon" class="text-5xl text-amber-400 mb-2"><i class="fas fa-check-circle"></i></div>
+                <h3 id="thankyou-title" class="text-2xl font-serif font-bold text-white"></h3>
+                <p id="thankyou-msg" class="text-slate-300 text-sm leading-relaxed max-w-md mx-auto"></p>
             </div>
 
-            <form id="rsvp-form" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="nameLabel">اسم الضيف الكريم</label>
-                    <input type="text" id="guest-name" required class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500" readonly>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="statusLabel">هل ستشرفنا بحضورك؟</label>
-                        <select id="attendance-status" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
-                            <option value="attending" data-i18n="attending">سأحضر بكل سرور</option>
-                            <option value="declined" data-i18n="declined">أعتذر عن عدم الحضور</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="countLabel">عدد الأشخاص القادمين</label>
-                        <select id="guest-count" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
-                            <!-- Populated via JS -->
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="noteLabel">ملاحظات أو تهنئة (اختياري)</label>
-                    <textarea id="guest-note" rows="3" class="w-full bg-slate-900 border border-slate-750 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500"></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold py-3.5 rounded-xl hover:opacity-90 transition shadow-lg" data-i18n="submitBtn">
-                    إرسال التأكيد
-                </button>
-            </form>
         </div>
     </section>
 
@@ -268,7 +280,7 @@
                 attending: "Ich/Wir komme(n) gerne",
                 declined: "Ich/Wir muss/müssen leider absagen",
                 countLabel: "Anzahl der Personen",
-                noteLabel: "Notizen oder Wünsche (Optional)",
+                noteLabel: "Notizen أو Wünsche (Optional)",
                 submitBtn: "Zusage senden",
                 personSingular: " Person",
                 personPlural: " Personen",
@@ -291,6 +303,7 @@
                 if(data.found) {
                     currentGuestData = data;
                     setLang(currentLang);
+                    checkIfAlreadySubmittedOrExpired();
                 }
             } catch(err) {
                 console.error("Error fetching guest data", err);
@@ -339,6 +352,64 @@
 
             document.getElementById('guest-name').value = getGuestName(lang);
             updateGuestCountDropdown(lang);
+            
+            // لو كان الضيف قد سجل مسبقاً، نحدث نص رسالة الشكر باللغة المختارة
+            if(currentGuestData && currentGuestData.status && currentGuestData.status !== 'Pending') {
+                renderThankYouMessage();
+            }
+        }
+
+        // فحص ما إذا كان قد سجل مسبقاً أو انتهى الوقت
+        function checkIfAlreadySubmittedOrExpired() {
+            const deadline = new Date("November 13, 2026 23:59:59").getTime();
+            const now = new Date().getTime();
+
+            // إذا انتهى الموعد أو أن الضيف قد قام بالتسجيل مسبقاً
+            if (now > deadline || (currentGuestData && currentGuestData.status && currentGuestData.status !== 'Pending')) {
+                document.getElementById('rsvp-form-container').classList.add('hidden');
+                document.getElementById('rsvp-thankyou-box').classList.remove('hidden');
+                renderThankYouMessage();
+
+                // إظهار قسم المعلومات الإضافية (الفنادق والطريق) إذا انتهى الوقت
+                const extraSection = document.getElementById('extra-info-section');
+                if(extraSection) extraSection.classList.remove('hidden');
+            }
+        }
+
+        function renderThankYouMessage() {
+            const name = getGuestName(currentLang);
+            const status = currentGuestData ? currentGuestData.status : 'declined';
+            const count = currentGuestData ? currentGuestData.confirmedCount : 0;
+
+            const titleEl = document.getElementById('thankyou-title');
+            const msgEl = document.getElementById('thankyou-msg');
+            const iconEl = document.getElementById('status-icon');
+
+            if (status === 'attending') {
+                iconEl.innerHTML = '<i class="fas fa-glass-cheers text-amber-400"></i>';
+                if (currentLang === 'ar') {
+                    titleEl.textContent = `أهلاً بك، ${name}`;
+                    msgEl.textContent = `نحن بانتظارك بكل شوق وفرح! لقد قمت بتأكيد حضورك أنت و ${count} من المرافقين معنا في هذا اليوم المميز.`;
+                } else if (currentLang === 'de') {
+                    titleEl.textContent = `Wir freuen uns auf Sie, ${name}`;
+                    msgEl.textContent = `Ihre Teilnahme für ${count} Person(en) wurde erfolgreich registriert. Wir können es kaum erwarten, diesen Tag mit Ihnen zu feiern!`;
+                } else {
+                    titleEl.textContent = `We are excited to see you, ${name}`;
+                    msgEl.textContent = `Your attendance has been confirmed for ${count} guest(s). We look forward to celebrating with you!`;
+                }
+            } else {
+                iconEl.innerHTML = '<i class="fas fa-heart text-slate-400"></i>';
+                if (currentLang === 'ar') {
+                    titleEl.textContent = `شكراً لتواصلك، ${name}`;
+                    msgEl.textContent = `كنا نتمنى حضورك ومشاركتنا فرحتنا، لكننا نقدر اعتذارك تماماً. نتمنى لك كل الأوقات السعيدة!`;
+                } else if (currentLang === 'de') {
+                    titleEl.textContent = `Vielen Dank für Ihre Rückmeldung, ${name}`;
+                    msgEl.textContent = `Wir hätten Sie sehr gerne dabei gehabt, bedauern aber Ihre Absage und wünschen Ihnen alles Gute!`;
+                } else {
+                    titleEl.textContent = `Thank you for your response, ${name}`;
+                    msgEl.textContent = `We would have loved to have you with us, but we completely understand. Wishing you all the best!`;
+                }
+            }
         }
 
         fetchGuestDetails();
@@ -357,15 +428,6 @@
             }
         }, 1000);
 
-        // Auto Hide Form after deadline (13-11-2026)
-        const deadline = new Date("November 13, 2026 23:59:59").getTime();
-        if(new Date().getTime() > deadline) {
-            const rsvpSection = document.getElementById('rsvp-section');
-            if(rsvpSection) rsvpSection.style.display = 'none';
-            const extraSection = document.getElementById('extra-info-section');
-            if(extraSection) extraSection.classList.remove('hidden');
-        }
-
         // Form Submit to Google Sheets
         document.getElementById('rsvp-form').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -374,12 +436,16 @@
                 return;
             }
 
+            const statusVal = document.getElementById('attendance-status').value;
+            const countVal = parseInt(document.getElementById('guest-count').value);
+            const noteVal = document.getElementById('guest-note').value;
+
             const payload = {
                 action: "updateRSVP",
                 guestId: guestId,
-                status: document.getElementById('attendance-status').value,
-                confirmedCount: parseInt(document.getElementById('guest-count').value),
-                note: document.getElementById('guest-note').value
+                status: statusVal,
+                confirmedCount: countVal,
+                note: noteVal
             };
 
             try {
@@ -387,7 +453,12 @@
                     method: 'POST',
                     body: JSON.stringify(payload)
                 });
-                alert('تم تسجيل وتحديث تأكيد حضورك بنجاح! شكراً لك.');
+                
+                // تحديث البيانات محلياً وعرض شاشة الشكر فوراً
+                currentGuestData.status = statusVal;
+                currentGuestData.confirmedCount = countVal;
+                checkIfAlreadySubmittedOrExpired();
+                
             } catch(err) {
                 alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
             }
