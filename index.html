@@ -38,18 +38,23 @@
         </div>
     </header>
 
+    <!-- Prominent Top Deadline Banner -->
+    <div class="bg-amber-500/10 border-b border-amber-500/30 text-amber-300 text-center py-2.5 px-4 text-xs md:text-sm mt-16 z-40 relative">
+        <i class="fas fa-clock ml-2"></i> <span data-i18n="topDeadlineNotice">تنبيه هامة: يرجى تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026.</span>
+    </div>
+
     <!-- Hero Section -->
-    <section class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
+    <section class="relative h-[80vh] flex items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="image6.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
+            <img src="WhatsApp Image 2026-11-08 at 2.16.37 PM.jpeg" alt="Tony & Marina" class="w-full h-full object-cover object-center filter brightness-50 scale-105 animate-pulse duration-[10000ms]">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
         </div>
         
         <div class="relative z-10 max-w-2xl mx-auto space-y-6">
             <span class="text-amber-400 tracking-[0.3em] uppercase text-sm font-semibold" data-i18n="saveTheDate">Save Our Date</span>
             <h1 class="text-5xl md:text-7xl font-serif font-bold tracking-wide text-white">Tony & Marina</h1>
-            <p class="text-amber-400 font-bold text-2xl font-serif tracking-widest">12 . 12 . 2026</p>
-            <p class="text-lg md:text-xl text-slate-300 font-light" data-i18n="weddingSubtitle">يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين</p>
+            <p class="text-amber-400 font-bold text-xl md:text-2xl font-serif tracking-widest">12 . 12 . 2026</p>
+            <p class="text-base md:text-xl text-slate-300 font-light" data-i18n="weddingSubtitle">يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين</p>
             
             <!-- Countdown Timer -->
             <div id="countdown" class="grid grid-cols-4 gap-3 max-w-md mx-auto pt-4 text-center">
@@ -141,7 +146,7 @@
     <section id="rsvp-section" class="max-w-2xl mx-auto px-4 py-16">
         <div class="glass p-8 rounded-3xl shadow-2xl border border-amber-500/20">
             
-            <!-- حالة الفورم الطبيعية (قبل التسجيل وقبل انتهاء الموعد) -->
+            <!-- حالة الفورم الطبيعية -->
             <div id="rsvp-form-container">
                 <div class="text-center mb-6">
                     <h2 class="text-3xl font-serif text-amber-400" data-i18n="rsvpTitle">تأكيد الحضور (RSVP)</h2>
@@ -185,7 +190,7 @@
                 </form>
             </div>
 
-            <!-- رسالة الشكر/الحالة (تظهر بعد إتمام التسجيل أو بعد انتهاء الموعد) -->
+            <!-- رسالة الشكر/الحالة -->
             <div id="rsvp-thankyou-box" class="hidden text-center py-8 space-y-4">
                 <div id="status-icon" class="text-5xl text-amber-400 mb-2"><i class="fas fa-check-circle"></i></div>
                 <h3 id="thankyou-title" class="text-2xl font-serif font-bold text-white"></h3>
@@ -204,6 +209,7 @@
     <script>
         const translations = {
             ar: {
+                topDeadlineNotice: "تنبيه هام: يرجى تأكيد الحضور في موعد أقصاه نهاية يوم 13-11-2026.",
                 saveTheDate: "احفظ هذا التاريخ",
                 weddingSubtitle: "يسعدنا أن تشاركونا أجمل لحظات عمرنا في برلين",
                 days: "أيام", hours: "ساعات", minutes: "دقائق", seconds: "ثوانٍ",
@@ -233,6 +239,7 @@
                 defaultGuest: "الضيف الكريم"
             },
             en: {
+                topDeadlineNotice: "Important: Please confirm your attendance by the end of November 13, 2026.",
                 saveTheDate: "Save Our Date",
                 weddingSubtitle: "We are delighted to celebrate our special day with you in Berlin",
                 days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
@@ -262,6 +269,7 @@
                 defaultGuest: "Dear Guest"
             },
             de: {
+                topDeadlineNotice: "Wichtig: Bitte bestätigen Sie Ihre Teilnahme bis zum 13. November 2026.",
                 saveTheDate: "Merken Sie sich das Datum",
                 weddingSubtitle: "Wir freuen uns, unseren besonderen Tag in Berlin mit Ihnen zu feiern",
                 days: "Tage", hours: "Stunden", minutes: "Minuten", seconds: "Sekunden",
@@ -284,7 +292,7 @@
                 attending: "Ich/Wir komme(n) gerne",
                 declined: "Ich/Wir muss/müssen leider absagen",
                 countLabel: "Anzahl der Personen",
-                noteLabel: "Notizen أو Wünsche (Optional)",
+                noteLabel: "Notizen oder Wünsche (Optional)",
                 submitBtn: "Zusage senden",
                 personSingular: " Person",
                 personPlural: " Personen",
@@ -357,24 +365,20 @@
             document.getElementById('guest-name').value = getGuestName(lang);
             updateGuestCountDropdown(lang);
             
-            // لو كان الضيف قد سجل مسبقاً، نحدث نص رسالة الشكر باللغة المختارة
             if(currentGuestData && currentGuestData.status && currentGuestData.status !== 'Pending') {
                 renderThankYouMessage();
             }
         }
 
-        // فحص ما إذا كان قد سجل مسبقاً أو انتهى الوقت
         function checkIfAlreadySubmittedOrExpired() {
             const deadline = new Date("November 13, 2026 23:59:59").getTime();
             const now = new Date().getTime();
 
-            // إذا انتهى الموعد أو أن الضيف قد قام بالتسجيل مسبقاً
             if (now > deadline || (currentGuestData && currentGuestData.status && currentGuestData.status !== 'Pending')) {
                 document.getElementById('rsvp-form-container').classList.add('hidden');
                 document.getElementById('rsvp-thankyou-box').classList.remove('hidden');
                 renderThankYouMessage();
 
-                // إظهار قسم المعلومات الإضافية (الفنادق والطريق) إذا انتهى الوقت
                 const extraSection = document.getElementById('extra-info-section');
                 if(extraSection) extraSection.classList.remove('hidden');
             }
@@ -393,13 +397,25 @@
                 iconEl.innerHTML = '<i class="fas fa-glass-cheers text-amber-400"></i>';
                 if (currentLang === 'ar') {
                     titleEl.textContent = `أهلاً بك، ${name}`;
-                    msgEl.textContent = `نحن بانتظارك بكل شوق وفرح! لقد قمت بتأكيد حضورك أنت و ${count} من المرافقين معنا في هذا اليوم المميز.`;
+                    if (count === 1) {
+                        msgEl.textContent = `نحن بانتظارك وحدك بكل شوق وفرح معنا في هذا اليوم المميز!`;
+                    } else {
+                        msgEl.textContent = `نحن بانتظارك بكل شوق وفرح! لقد قمت بتأكيد حضورك أنت و ${(count - 1)} من المرافقين معنا في هذا اليوم المميز.`;
+                    }
                 } else if (currentLang === 'de') {
                     titleEl.textContent = `Wir freuen uns auf Sie, ${name}`;
-                    msgEl.textContent = `Ihre Teilnahme für ${count} Person(en) wurde erfolgreich registriert. Wir können es kaum erwarten, diesen Tag mit Ihnen zu feiern!`;
+                    if (count === 1) {
+                        msgEl.textContent = `Ihre Teilnahme als 1 Person wurde erfolgreich registriert. Wir können es kaum erwarten, diesen Tag mit Ihnen zu feiern!`;
+                    } else {
+                        msgEl.textContent = `Ihre Teilnahme für ${count} Personen wurde erfolgreich registriert. Wir können es kaum erwarten, diesen Tag mit Ihnen zu feiern!`;
+                    }
                 } else {
                     titleEl.textContent = `We are excited to see you, ${name}`;
-                    msgEl.textContent = `Your attendance has been confirmed for ${count} guest(s). We look forward to celebrating with you!`;
+                    if (count === 1) {
+                        msgEl.textContent = `Your attendance has been confirmed for 1 guest. We look forward to celebrating with you!`;
+                    } else {
+                        msgEl.textContent = `Your attendance has been confirmed for ${count} guests. We look forward to celebrating with you!`;
+                    }
                 }
             } else {
                 iconEl.innerHTML = '<i class="fas fa-heart text-slate-400"></i>';
@@ -458,7 +474,6 @@
                     body: JSON.stringify(payload)
                 });
                 
-                // تحديث البيانات محلياً وعرض شاشة الشكر فوراً
                 currentGuestData.status = statusVal;
                 currentGuestData.confirmedCount = countVal;
                 checkIfAlreadySubmittedOrExpired();
